@@ -99,62 +99,91 @@
     </div>
 </div>
 
-<!-- Main Content -->
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <h2 class="text-2xl font-bold text-white mb-6">Daftar Permintaan Terbaru</h2>
-    <div class="bg-gray-800/50 border border-white/10 rounded-lg overflow-hidden shadow-lg">
-        <div class="overflow-x-auto">
-            <table class="w-full divide-y divide-gray-700">
-                <thead class="bg-gray-800/80 border-b border-white/10">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">No</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Nama Pemilik</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Jenis Layanan</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Pesan/Kerusakan</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">No Telepon</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Waktu Pesanan</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-700">
-                    @forelse ($data as $dt)
-                    <tr class="hover:bg-gray-700/30 transition-colors">
-                        <td class="px-6 py-4 text-sm text-gray-300">{{ $loop->iteration }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-300">{{ $dt->nama }}</td>
-                        <td class="px-6 py-4 text-sm">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-500/20 text-indigo-300">
-                                {{ $dt->layanan }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-sm text-gray-300">{{ Str::limit($dt->pesan, 40) }}</td>
-                        <td class="px-6 py-4 text-sm font-semibold text-indigo-400">{{ $dt->no_telepon }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-400">
-                            <div class="text-xs">{{ $dt->created_at->format('d M Y') }}</div>
-                            <div class="text-xs text-gray-500">{{ $dt->created_at->format('H:i') }}</div>
-                        </td>
-                        <td class="px-6 py-4 text-sm space-x-2 flex">
-                            <a href="{{ route('layanan.edit', $dt->id) }}" class="bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 px-3 py-1 rounded transition-colors text-xs font-medium">
-                                Edit
-                            </a>
-                            <form action="{{ route('layanan.destroy', $dt->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-3 py-1 rounded transition-colors text-xs font-medium">
-                                    Hapus
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="px-6 py-8 text-center text-gray-400">
-                            <p>Tidak ada data permintaan layanan</p>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+<!-- Layout with Sidebar and Main Content -->
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <!-- Sidebar (left) -->
+        <aside class="md:col-span-1">
+            <div class="bg-gray-800/50 border border-white/10 rounded-lg p-6 sticky top-24">
+                <h3 class="text-sm font-semibold text-gray-300 mb-4">Menu</h3>
+                <ul class="space-y-2">
+                    <li><a href="/dashboard" class="block text-gray-300 hover:text-white">Dashboard</a></li>
+                    <li><a href="/layanan" class="block text-gray-300 hover:text-white">Layanan</a></li>
+                    <li><a href="/pricelist" class="block text-gray-300 hover:text-white">Pricelist</a></li>
+                    <li><a href="/kontak" class="block text-gray-300 hover:text-white">Kontak</a></li>
+                    <li><a href="/promosi" class="block text-indigo-300 hover:text-white font-medium">Promosi</a></li>
+                </ul>
+
+                <div class="mt-6">
+                    <a href="/promosi" class="block bg-indigo-600 text-white text-center py-2 rounded">Lihat Promosi</a>
+                </div>
+
+                <div class="mt-6 text-xs text-gray-400">
+                    <p>Tips: Gunakan Promosi untuk meningkatkan konversi.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content (right) -->
+        <main class="md:col-span-3">
+            <h2 class="text-2xl font-bold text-white mb-6">Daftar Permintaan Terbaru</h2>
+            <div class="bg-gray-800/50 border border-white/10 rounded-lg overflow-hidden shadow-lg">
+                <div class="overflow-x-auto">
+                    <table class="w-full divide-y divide-gray-700">
+                        <thead class="bg-gray-800/80 border-b border-white/10">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">No</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Nama Pemilik</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Email</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Jenis Layanan</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Pesan/Kerusakan</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">No Telepon</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Waktu Pesanan</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700">
+                            @forelse ($data as $dt)
+                            <tr class="hover:bg-gray-700/30 transition-colors">
+                                <td class="px-6 py-4 text-sm text-gray-300">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-300">{{ $dt->nama }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-300">{{ $dt->email }}</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-500/20 text-indigo-300">
+                                        {{ $dt->layanan }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-300">{{ Str::limit($dt->pesan, 40) }}</td>
+                                <td class="px-6 py-4 text-sm font-semibold text-indigo-400">{{ $dt->no_telepon }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-400">
+                                    <div class="text-xs">{{ $dt->created_at->format('d M Y') }}</div>
+                                    <div class="text-xs text-gray-500">{{ $dt->created_at->format('H:i') }}</div>
+                                </td>
+                                <td class="px-6 py-4 text-sm space-x-2 flex">
+                                    <a href="{{ route('layanan.edit', $dt->id) }}" class="bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 px-3 py-1 rounded transition-colors text-xs font-medium">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('layanan.destroy', $dt->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-3 py-1 rounded transition-colors text-xs font-medium">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8" class="px-6 py-8 text-center text-gray-400">
+                                    <p>Tidak ada data permintaan layanan</p>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
     </div>
 </div>
 @endsection

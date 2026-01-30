@@ -21,12 +21,13 @@
             <img src="{{ asset('fixifylogo1.png') }}" alt="Fixify" class="h-10 w-auto object-contain" />
           </div>
           <div class="hidden md:block">
-            <div class="ml-10 flex items-baseline space-x-4">
+              <div class="ml-10 flex items-baseline space-x-4">
               <a href="/" class="{{ request()->is(['/'])?'bg-indigo-600':''}} rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-white/5 transition">Home</a>
               <a href="/tentang" class="{{ request()->is(['tentang'])?'bg-indigo-600':''}} rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white transition">Tentang</a>
               <a href="/layanan" class="{{ request()->is(['layanan'])?'bg-indigo-600':''}} rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white transition">Layanan</a>
               <a href="/pricelist" class="{{ request()->is(['pricelist'])?'bg-indigo-600':''}} rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white transition">Pricelist</a>
               <a href="/dashboard" class="{{ request()->is(['dashboard'])?'bg-indigo-600':''}} rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white transition">Dashboard</a>
+              <a href="/promosi" class="{{ request()->is(['promosi'])?'bg-indigo-600':''}} rounded-md px-3 py-2 text-sm font-medium text-indigo-300 hover:bg-white/5 hover:text-white transition">Promosi</a>
             </div>
           </div>
         </div>

@@ -96,6 +96,14 @@
                           @enderror
                     </div>
 
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">email: </label>
+                        <input type="text" name="email" id="email" class="w-full bg-gray-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none transition" placeholder="Masukkan Email:" value="{{ old('email') }}">
+                          @error('email')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                    </div>
+
 
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-2">Layanan / Kerusakan</label>

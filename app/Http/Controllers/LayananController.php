@@ -27,11 +27,14 @@ class LayananController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'layanan' => 'required|string|max:255',
             'pesan' => 'nullable|string',
             'no_telepon' => 'required|string|max:16',      
         ],[
             'nama.required' => 'Nama Pemilik wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Email harus valid.',
             'layanan.required' => 'Layanan / Kerusakan wajib dipilih.',
             'no_telepon.required'=> 'no_telepon / Mohon Isi No Telepon.',
         ]);
@@ -40,6 +43,7 @@ class LayananController extends Controller
         }
         Layanan::create([
             'nama' => $request->nama,
+            'email' => $request->email,
             'layanan' => $request->layanan,
             'pesan' => $request->pesan,
             'no_telepon' => $request->no_telepon,
@@ -65,6 +69,7 @@ class LayananController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'layanan' => 'required|string|max:255',
             'pesan' => 'nullable|string',
             'no_telepon' => 'required|string|max:16',      
@@ -73,6 +78,7 @@ class LayananController extends Controller
         $data = Layanan::findOrFail($id);
         $data->update([
             'nama' => $request->nama,
+            'email' => $request->email,
             'layanan' => $request->layanan,
             'pesan' => $request->pesan,
             'no_telepon' => $request->no_telepon,
